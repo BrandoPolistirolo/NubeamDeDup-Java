@@ -64,4 +64,4 @@ public static List<Long> NubeamSE(JavaPairRDD<String,String> x ) {
 		// le sequenze uniche ma anche quelle rimosse (tramite un 'filtro inverso')
 	}
 ```
-La lista degli indici viene quindi utilizzata per filtrare l'RDD originale tramite la funzione .filter di Spark. 
+La lista degli indici viene quindi utilizzata per filtrare l'RDD originale tramite la funzione .filter di Spark, gli indici vengono poi eliminati tramite la funzione .MapToPair ottenendo così un RDD composto dalla Tuple2 id-Sequenze pronto per essere salvato in formato FASTQ.  
