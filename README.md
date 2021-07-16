@@ -37,7 +37,9 @@ public static List<Long> NubeamSE(JavaPairRDD<String,String> x ) {
 		List<Long> indexes = new ArrayList<>();
 		long index = 0;
 		// reversed index serve per identificare i numeri Nubeam derivanti
-		// dall'operazione complementare inverso. (poichè vengono aggiunti se la 		 sequenza non è un duplicato ma vanno poi tolti in seguito)
+		
+		// dall'operazione complementare inverso. (poichè vengono aggiunti se la 
+		// sequenza non è un duplicato ma vanno poi tolti in seguito)
 		long reversedindex = -1;
 		//ciclo for che itera il PairRDD
 		for (Tuple2<String,String> sequence : x.collect()) {
@@ -57,7 +59,9 @@ public static List<Long> NubeamSE(JavaPairRDD<String,String> x ) {
 		indexes.removeIf(n ->  (n == -1) );
 		return indexes;
 		// la funzione restituisce un indice che poi verrà utilizzato per filtrare
-		// il pairRDD originale per ricavare un PairRDD con le sole sequenze 	 		 uniche, questo procedimento ci permette di poter salvare su file sia le sequenze uniche ma anche quelle rimosse (tramite un 'filtro inverso')
+		// il pairRDD originale per ricavare un PairRDD con le sole sequenze 
+		// uniche, questo procedimento ci permette di poter salvare su file sia 
+		// le sequenze uniche ma anche quelle rimosse (tramite un 'filtro inverso')
 	}
 ```
 La lista degli indici viene quindi utilizzata per filtrare l'RDD originale tramite la funzione .filter di Spark. 
