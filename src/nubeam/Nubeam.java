@@ -149,13 +149,13 @@ public class Nubeam {
 			    if (Answer1.contains("y")) {
 					System.out.println("Choose File Name for De-Duplicated File : ");
 					String OutFile = input.next();
-					SaveFile.SaveToFQ(Result, OutFile + ".fq");
+					SaveFile.SaveToFQ(Result, OutFile );
 				}
 				if (Answer2.contains("y")) {
 					System.out.println("Choose File Name for Removed Sequences : ");
 					String Removed = input.next();
 					JavaPairRDD<String,String> Removed1 = dSequences_1.zipWithIndex().filter(record -> InverseFilter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
-					SaveFile.SaveToFQ(Removed1, Removed + ".fq");
+					SaveFile.SaveToFQ(Removed1, Removed );
 					
 				}
 				System.out.println("Original Number of Sequences : " + dSequences_1.count());
@@ -221,7 +221,6 @@ public class Nubeam {
 		
 			JavaPairRDD<String, String> dSequences_1 = dSequences1.values().mapToPair(record -> new Tuple2<>(record.getKey(), record.getValue()));
 			JavaPairRDD<String, String> dSequences_2 = dSequences2.values().mapToPair(record -> new Tuple2<>(record.getKey(), record.getValue()));
-
 			
 			
 			if(Answer3.contains("y")) {
@@ -233,19 +232,20 @@ public class Nubeam {
 				
 				JavaPairRDD<String,String> dSeq1 = dSequences_1.zipWithIndex().filter(record -> SampleFilter(record,sample_size)).mapToPair(record -> new Tuple2<>(record._1._1,record._1._2));
 				JavaPairRDD<String,String> dSeq2 = dSequences_2.zipWithIndex().filter(record -> SampleFilter(record,sample_size)).mapToPair(record -> new Tuple2<>(record._1._1,record._1._2));
-				
-				List<Tuple2<Tuple2<String, String>, Tuple2<String, String>>> list = Generic.zipJava8(dSeq1.collect(), dSeq2.collect());
+				JavaPairRDD<Tuple2<String,String>,Tuple2<String,String>> zipped = dSeq1.coalesce(1).zip(dSeq2.coalesce(1));
+
+				//List<Tuple2<Tuple2<String, String>, Tuple2<String, String>>> list = Generic.zipJava8(dSeq1.collect(), dSeq2.collect());
 				dSequences1.unpersist();
 				dSequences2.unpersist();
 				dSequences_1.unpersist();
 				dSequences_2.unpersist();
 				
-				JavaPairRDD<Tuple2<String,String>,Tuple2<String,String>> Combined = jsc.parallelizePairs(list);
-				List<Long> Index = NubeamPairedEnd.NubeamPE(Combined);
-				long deDupSequences = Index.size() + 1;
+				//JavaPairRDD<Tuple2<String,String>,Tuple2<String,String>> Combined = jsc.parallelizePairs(list);
+				List<Long> Index = NubeamPairedEnd.NubeamPE(zipped);
+				long deDupSequences = Index.size();
 				
-				Combined.unpersist();
-				list.clear();
+				//Combined.unpersist();
+				//list.clear();
 				JavaPairRDD<String,String> Dedup1 = dSeq1.zipWithIndex().filter(record -> Filter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
 				JavaPairRDD<String,String> Dedup2 = dSeq2.zipWithIndex().filter(record -> Filter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
 				
@@ -256,8 +256,8 @@ public class Nubeam {
 					String OutFile1 = input.next();
 					System.out.println("choose name for De-Duplicated file 2 :");
 					String OutFile2 = input.next();
-					SaveFile.SaveToFQ(Dedup1, OutFile1 +".fq");
-					SaveFile.SaveToFQ(Dedup2, OutFile2 + ".fq");
+					SaveFile.SaveToFQ(Dedup1, OutFile1 );
+					SaveFile.SaveToFQ(Dedup2, OutFile2 );
 	
 				}
 				if (Answer2.contains("y")) {
@@ -267,8 +267,8 @@ public class Nubeam {
 					String RemFile2 = input.next();
 					JavaPairRDD<String,String> Removed1 = dSequences_1.zipWithIndex().filter(record -> InverseFilter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
 					JavaPairRDD<String,String> Removed2 = dSequences_2.zipWithIndex().filter(record -> InverseFilter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
-					SaveFile.SaveToFQ(Removed1, RemFile1 + ".fq");
-					SaveFile.SaveToFQ(Removed2, RemFile2 + ".fq");
+					SaveFile.SaveToFQ(Removed1, RemFile1 );
+					SaveFile.SaveToFQ(Removed2, RemFile2 );
 					
 				}
 				long origlen = dSeq1.count();
@@ -280,13 +280,14 @@ public class Nubeam {
 			}
 			//System.out.println(dSequences_2.partitions());
 			if(Answer3.contains("n")) {
-				
-				List<Tuple2<Tuple2<String, String>, Tuple2<String, String>>> list = Generic.zipJava8(dSequences_1.collect(), dSequences_2.collect());
+				JavaPairRDD<Tuple2<String,String>,Tuple2<String,String>> zipped = dSequences_1.coalesce(1).zip(dSequences_2.coalesce(1));
+
+				//List<Tuple2<Tuple2<String, String>, Tuple2<String, String>>> list = Generic.zipJava8(dSequences_1.collect(), dSequences_2.collect());
 				dSequences1.unpersist();
 				dSequences2.unpersist();
-				JavaPairRDD<Tuple2<String,String>,Tuple2<String,String>> Combined = jsc.parallelizePairs(list);
-				List<Long> Index = NubeamPairedEnd.NubeamPE(Combined);
-				long deDupSequences = Index.size() + 1;
+				//JavaPairRDD<Tuple2<String,String>,Tuple2<String,String>> Combined = jsc.parallelizePairs(list);
+				List<Long> Index = NubeamPairedEnd.NubeamPE(zipped);
+				long deDupSequences = Index.size();
 				
 				//Acquisizione Dati Neo4j
 				/*
@@ -297,8 +298,8 @@ public class Nubeam {
 				*/
 				//
 				
-				Combined.unpersist();
-				list.clear();
+				//Combined.unpersist();
+				//list.clear();
 				JavaPairRDD<String,String> Dedup1 = dSequences_1.zipWithIndex().filter(record -> Filter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
 				JavaPairRDD<String,String> Dedup2 = dSequences_2.zipWithIndex().filter(record -> Filter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
 				dSequences_1.unpersist();
@@ -312,8 +313,8 @@ public class Nubeam {
 					String OutFile1 = input.next();
 					System.out.println("choose name for De-Duplicated file 2 :");
 					String OutFile2 = input.next();
-					SaveFile.SaveToFQ(Dedup1, OutFile1 +".fq");
-					SaveFile.SaveToFQ(Dedup2, OutFile2 + ".fq");
+					SaveFile.SaveToFQ(Dedup1, OutFile1 );
+					SaveFile.SaveToFQ(Dedup2, OutFile2 );
 				}
 				if (Answer2.contains("y")) {
 					System.out.println("choose name for Removed Sequences file 1 :");
@@ -322,8 +323,8 @@ public class Nubeam {
 					String RemFile2 = input.next();
 					JavaPairRDD<String,String> Removed1 = dSequences_1.zipWithIndex().filter(record -> InverseFilter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
 					JavaPairRDD<String,String> Removed2 = dSequences_2.zipWithIndex().filter(record -> InverseFilter(record,Index)).mapToPair(record -> new Tuple2<>(record._1._1(),record._1._2()));
-					SaveFile.SaveToFQ(Removed1, RemFile1 + ".fq");
-					SaveFile.SaveToFQ(Removed2, RemFile2 + ".fq");
+					SaveFile.SaveToFQ(Removed1, RemFile1 );
+					SaveFile.SaveToFQ(Removed2, RemFile2 );
 				}
 				long origlen = dSequences_1.count();
 				System.out.println("Original Number of Sequences : " + origlen);
