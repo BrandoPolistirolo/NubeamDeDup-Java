@@ -15,12 +15,8 @@ import scala.Tuple2;
 
 
 public class NubeamPairedEnd {
-	String Extension;
 	
-	public void setExtension (String a) {
-		Extension = a;
-		return;
-	}
+	
 	
 	public static List<Long> NubeamPE (JavaPairRDD<Tuple2<String,String>,Tuple2<String,String>> x) {
 		// nubeam - index
