@@ -153,10 +153,10 @@ Abbiamo testato il programma su tre campioni diversi dei dati originali (troppo 
 - un campione 'Large' da 5 000 000 coppie di sequenze
 L'algoritmo era stato precedentemente testato sui toydata forniti dalla pagina github dei ricercatori ottenendo risultati analoghi ai loro. 
 ## Tabella Risultati
-**| | Small  | Medium  | Large  |
+| | Small  | Medium  | Large  |
 | ------------ | ------------ | ------------ | ------------ |
 | Sequenze Originali  | 750 000 x2 | 2 250 000 x2 | 5 000 000 x2 |
 | Sequenze Deduplicate | 748 652 | 2 245 655 | 4 990 178 |
 | Sequenze Rimosse  | 1348 | 4345 | 9822 |
 | Tempo (secondi) | 53 | 169 | 341 |
-| Committed Memory (Kbytes) | 2 760 704 | 4 931 584 | 11 771 904 |**
+| Committed Memory (Kbytes) | 2 760 704 | 4 931 584 | 11 771 904 |
