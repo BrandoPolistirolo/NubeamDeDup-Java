@@ -162,7 +162,7 @@ L'algoritmo era stato precedentemente testato sui toydata forniti dalla pagina g
 | Committed Memory (Kbytes) | 2 760 704 | 4 931 584 | 11 771 904 |
 ## Diagnostica
 Per osservare il consumo di memoria del programma, il consumo di CPU, il numero di classi e threads è stato utilizzato JConsole : 
-![Diagnostica - Campione 'Small' ](small.png ")
+![Diagnostica - Campione 'Small' ](/small.png ")
 
 ## Considerazioni
 Rispetto alla versione originale scritta dai ricercatori in c++, la nostra impiega più memoria.Questo è probabilmente dovuto al fatto che nel processo di duplicazione oltre alle due Map(nel caso paired-end) vi è anche una lista degli indici che occupa memoria, inoltre viene mantenuto per tutta la durata l'RDD che contiene i dati delle sequenze (o più di uno nel caso Paired-End).
