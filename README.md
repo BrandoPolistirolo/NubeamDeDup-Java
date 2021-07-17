@@ -168,3 +168,8 @@ Per osservare il consumo di memoria del programma, il consumo di CPU, il numero 
 
 ## Considerazioni
 Rispetto alla versione originale scritta dai ricercatori in c++, la nostra impiega più memoria.Questo è probabilmente dovuto al fatto che nel processo di duplicazione oltre alle due Map(nel caso paired-end) vi è anche una lista degli indici che occupa memoria, inoltre viene mantenuto per tutta la durata l'RDD che contiene i dati delle sequenze (o più di uno nel caso Paired-End).
+# NEO4J
+![](https://i.ibb.co/zfgMS57/3neo4j.jpg)
+![](https://i.ibb.co/SRBr0DR/2neo4j.jpg)
+![](https://i.ibb.co/BggfHZD/graph.png)
+![](https://i.ibb.co/cNWC7nr/1neo4j.jpg)
