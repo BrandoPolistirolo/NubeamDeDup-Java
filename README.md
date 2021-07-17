@@ -146,3 +146,17 @@ Il programma interroga l'utente prima di iniziare il procedimento di de-duplicaz
 - Se vuole salvare su file le sequenze rimosse
 - Se vuole far girare il programma su un campione dei dati (in caso di risposta affermativa il programma chiede un numero da 1 a 100 rappresentante la percentuale che l'utente vuole campionare).
 - il programma infine restituisce alcune informazioni riguardanti il processo di de-duplicazione (numero di sequenze rimosse, numero di sequenze de-duplicate sul totale e tempo impiegato dal programma espresso in secondi)
+# Risultati
+Abbiamo testato il programma su tre campioni diversi dei dati originali (troppo grandi per essere processati) : 
+- un campione 'Small' da 750 000  coppie di sequenze 
+- un campione 'Medium' da 2 250 000 coppie di sequenze
+- un campione 'Large' da 5 000 000 coppie di sequenze
+L'algoritmo era stato precedentemente testato sui toydata forniti dalla pagina github dei ricercatori ottenendo risultati analoghi ai loro. 
+## Tabella Risultati
+**| | Small  | Medium  | Large  |
+| ------------ | ------------ | ------------ | ------------ |
+| Sequenze Originali  | 750 000 x2 | 2 250 000 x2 | 5 000 000 x2 |
+| Sequenze Deduplicate | 748 652 | 2 245 655 | 4 990 178 |
+| Sequenze Rimosse  | 1348 | 4345 | 9822 |
+| Tempo (secondi) | 53 | 169 | 341 |
+| Committed Memory (Kbytes) | 2 760 704 | 4 931 584 | 11 771 904 |**
