@@ -161,7 +161,7 @@ L'algoritmo era stato precedentemente testato sui toydata forniti dalla pagina g
 | Tempo (secondi) | 53 | 169 | 341 |
 | Committed Memory (Kbytes) | 2 760 704 | 4 931 584 | 11 771 904 |
 ## Diagnostica
-Per osservare il consumo di memoria del programma, il consumo di CPU, il numero di classi e threads è stato utilizzato JConsole : 
+Per osservare il consumo di memoria del programma, il consumo di CPU, il numero di classi e threads è stato utilizzato JConsole : (in ordine : small, medium, large)
 ![Diagnostica - Campione 'Small' ](https://i.ibb.co/k180br7/small.jpg)
 ![Diagnostica - Campione 'Medium'](https://i.ibb.co/GRYqMLN/medium.png)
 ![Diagnostica - Campione 'Large'](https://i.ibb.co/YQf9BrG/large.jpg)
