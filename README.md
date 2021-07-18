@@ -174,3 +174,7 @@ Abbiamo inoltre implementato Neo4j all'interno del nostro programma con il fine 
 ![](https://i.ibb.co/SRBr0DR/2neo4j.jpg)
 ![](https://i.ibb.co/BggfHZD/graph.png)
 ![](https://i.ibb.co/cNWC7nr/1neo4j.jpg)
+Una Coppia di lettura è duplicata se condivide i propri numeri nubeam con altre coppie di lettura, ciò significa dal punto di vista del grafo che le coppie duplicate costituiscono un ciclo. Questa caratteristica si può vedere nella seguente immagine. Le coppie di lettura condividono i numeri nubeam, di conseguenza le sequenze genetiche sono dei duplicati. Questa proprietà consentirebbe di implementare l'algoritmo di deduplicazione anche in neo4j sfruttando quindi i grafi e le relazioni tra coppie di sequenze e i corrispondenti numeri nubeam. 
+
+![](https://i.ibb.co/W6NCTJP/Immagine-2021-07-17-145041.jpg)
+Le immagini sono state ricavate creando il database neo4j da java. Per ricavare queste immagini sono stati costruiti più database, il primo senza controllare se venissero creati nodi doppi ed il secondo che invece controlla se il nodo esiste già e in tal caso passa alla creazione del nodo successivo.
